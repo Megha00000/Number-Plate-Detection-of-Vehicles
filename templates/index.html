@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Number Plate Detection</title>
+</head>
+<body>
+    <h1>Upload an image of a vehicle</h1>
+    
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    {% if filename %}
+        <h2>Uploaded Image:</h2>
+        <img src="{{ url_for('static', filename=filename) }}" alt="Uploaded Image" width="500">
+        
+        <h2>Detected License Plate Text:</h2>
+        {% for result in ocr_results %}
+            <p>Detected Plate: {{ result[0][1] }}</p>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>
